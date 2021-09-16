@@ -1,7 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-//proptype for specify type of props
-
 
 const Rating = ({value ,text , color}) => {
     return (
