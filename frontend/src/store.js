@@ -1,11 +1,32 @@
 import { createStore ,combineReducers ,applyMiddleware} from 'redux'
 import  thunk from 'redux-thunk'
 import {composeWithDevTools } from 'redux-devtools-extension'
+import { 
+    productReducer,
+    productDetailsReducer ,
+    productDeleteReducer,
+    productCreateReducer,
+    productUpdateReducer
+} from "./redux/reducers/productReducer"
+import { 
+    cartReducer
+} from "./redux/reducers/cartReducer.js"
+import { 
+    userLoginReducer,
+    userRegisterReducer,
+    userDetailsReducer,
+    userUpdateProfileReducer,
+    userListReducer,
+    userDeleteReducer,
+    userUpdateReducer
+} from './redux/reducers/userReducer.js'
+import {
+    orderCreateReducer,
+    orderDetailsReducer,
+    orderPayReducer,
+    orderListMyReducer
+} from './redux/reducers/orderReducer.js'
 
-import {productReducer ,productDetailsReducer } from "./redux/reducers/productReducer"
-import {cartReducer} from "./redux/reducers/cartReducer.js"
-import {userLoginReducer , userRegisterReducer , userDetailsReducer , userUpdateProfileReducer} from './redux/reducers/userReducer.js'
-import {orderCreateReducer , orderDetailsReducer ,orderPayReducer} from './redux/reducers/orderReducer.js'
 
 const reducer =combineReducers({
     productList:productReducer,
@@ -18,6 +39,13 @@ const reducer =combineReducers({
     orderCreate:orderCreateReducer,
     orderDetails:orderDetailsReducer,
     orderPay:orderPayReducer,
+    orderListMy:orderListMyReducer,
+    userList:userListReducer,
+    userDelete:userDeleteReducer,
+    userUpdate:userUpdateReducer,
+    productDelete:productDeleteReducer,
+    productCreate:productCreateReducer,
+    productUpdate:productUpdateReducer,
 })
 
 
@@ -31,7 +59,6 @@ const  paymentMethodFromStorage =localStorage.getItem('paymentMethod') ? JSON.pa
 const initialState ={
     cart :{cartItems : cartItemsFromStorage ,shippingAddress :shippingAddressFromStorage , paymentMethod : paymentMethodFromStorage} ,
     userLogin : { userInfo : userInfoFromStorage}, 
-    // orderCreate : {}
 
 }
 

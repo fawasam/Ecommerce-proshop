@@ -10,6 +10,7 @@ const Header = () => {
 
   const history = useHistory()
     const dispatch =useDispatch()
+
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } =userLogin
 
@@ -20,6 +21,7 @@ const Header = () => {
 
     return (
 <>
+
 <Navbar bg="light" expand="lg" bg='dark' variant ='dark' collapseOnSelect>
   <Container>
     <LinkContainer to="/">
@@ -54,6 +56,20 @@ const Header = () => {
           <i className='fas fa-user'></i>   Sign In
           </Nav.Link>
         </LinkContainer>
+         )}
+         {userInfo && userInfo.isAdmin && (
+
+           <NavDropdown title='Admin' id='admin'>
+            <LinkContainer to='/admin/userList'>
+              <NavDropdown.Item>Users</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to='/admin/productList'>
+              <NavDropdown.Item>ProductList</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to='/admin/orderList'>
+              <NavDropdown.Item>OrderList</NavDropdown.Item>
+            </LinkContainer>
+          </NavDropdown>  
          )}
       </Nav>
     </Navbar.Collapse>
