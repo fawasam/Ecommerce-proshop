@@ -23,6 +23,7 @@ import UserList from './pages/UserList';
 import UserEdit from './pages/UserEdit';
 import ProductList from './pages/ProductList';
 import ProductEdit from './pages/ProductEdit';
+import OrderList from './pages/OrderList';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           {/* http://localhost:5000/ */}
           <Route path="/" exact component={Main}/>
           <Route path="/products" exact component={Home} />
+          <Route path="/products/search/:keyword"  component={Home}  />
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register}  />
           <Route path="/profile" exact component={Profile}   />
@@ -48,6 +50,7 @@ function App() {
           <Route path="/products/:id" exact component={ProductPage} />
           <Route path="/admin/productList"  exact component={ProductList}     />
           <Route path="/admin/product/:id/edit" exact component={ProductEdit}  />
+          <Route path="/admin/orderList"  component={OrderList}  />
         </Container>
       </main>
       <Footer/>

@@ -75,7 +75,7 @@ const ProductEdit = ({ match, history}) => {
     }
     const submitHandler =(e)=>{
         e.preventDefault()
-                Swal.fire({
+        Swal.fire({
          title: 'Product Update',
          text: 'Successfully',
          icon: 'success',

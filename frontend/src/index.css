@@ -35,3 +35,8 @@ h3 {
   opacity: 0.4;
 }
 /* margin-right: 100px; */
+
+.searchBox {
+  display: flex;
+  margin-top: 8px;
+}

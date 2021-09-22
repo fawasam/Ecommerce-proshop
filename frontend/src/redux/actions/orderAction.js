@@ -14,7 +14,13 @@ import {
     // ORDER_PAY_RESET,
     ORDER_MY_LIST_FAIL,
     ORDER_MY_LIST_REQUEST,
-    ORDER_MY_LIST_SUCCESS
+    ORDER_MY_LIST_SUCCESS,
+    ORDER_LIST_FAIL,
+    ORDER_LIST_REQUEST,
+    ORDER_LIST_SUCCESS,
+    ORDER_DELIVERED_FAIL,
+    ORDER_DELIVERED_REQUEST,
+    ORDER_DELIVERED_SUCCESS
 } from "../constants/constants"
 
 
@@ -60,7 +66,6 @@ export const createOrder = (order) => async (dispatch , getState ) =>{
 
 
 export const getOrderDetails = (id) => async (dispatch , getState ) =>{
-    console.log('hello');
     
     try {
         dispatch({
@@ -76,7 +81,6 @@ export const getOrderDetails = (id) => async (dispatch , getState ) =>{
             }
         }
         const {data} = await axios.get(`/api/orders/${id}`,config)
-        console.log(data);
 
     //    Swal.fire({
     //      title: 'Order Placed',
@@ -154,7 +158,6 @@ export const listMyOrder = () => async (dispatch , getState ) =>{
             }
         }
         const {data} = await axios.get(`/api/orders/myorders` , config)
-        console.log(data)
         
         dispatch({
             type:ORDER_MY_LIST_SUCCESS,
@@ -164,6 +167,74 @@ export const listMyOrder = () => async (dispatch , getState ) =>{
     } catch (error) {
             dispatch({ 
             type:ORDER_MY_LIST_FAIL , 
+            payload :error.message
+        })
+    }
+}
+
+
+export const listOrders = () => async (dispatch , getState ) =>{
+    try {
+        dispatch({
+            type:ORDER_LIST_REQUEST
+        })
+ 
+        //GET USER INFO AS TOKEN
+        const {userLogin:{userInfo}} = getState()
+
+        const config ={
+            headers:{
+                'Content-Type':'application/json',
+                 Authorization : `Bearer ${userInfo.token}`
+            }
+        }
+        const {data} = await axios.get(`/api/orders` , config)
+        
+        dispatch({
+            type:ORDER_LIST_SUCCESS,
+            payload:data,
+        })
+
+    } catch (error) {
+            dispatch({ 
+            type:ORDER_LIST_FAIL , 
+            payload :error.message
+        })
+    }
+}
+
+
+
+export const deliverOrder = (order) => async (dispatch , getState ) =>{
+    try {
+        dispatch({
+            type:ORDER_DELIVERED_REQUEST
+        })
+ 
+        //GET USER INFO AS TOKEN
+        const {userLogin:{userInfo}} = getState()
+
+        const config ={
+            headers:{
+                 Authorization : `Bearer ${userInfo.token}`
+            }
+        }
+        const {data} = await axios.put(`/api/orders/${order._id}/deliver`,{},config)
+
+        dispatch({
+            type:ORDER_DELIVERED_SUCCESS,
+            payload:data,
+        })
+        Swal.fire({
+          title: 'Order Delivery',
+          text: 'Successfull',
+          icon: 'success',
+          showConfirmButton: false,
+           })  
+
+    } catch (error) {
+            dispatch({ 
+            type:ORDER_DELIVERED_FAIL , 
             payload :error.message
         })
     }
